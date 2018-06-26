@@ -32,7 +32,7 @@ app.use(session({
 //parse incoming requests
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); //changed this to true because the other app did must research more
-app.set('view engine', 'ejs');
+app.set('view engine', 'pug');
 
 //serve static files from template
 app.use(express.static(__dirname + '/templateLogReg'));//radical changes will definitely not work

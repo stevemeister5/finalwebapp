@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 var scraper = require('google-search-scraper');
 var DeathByCaptcha = require('deathbycaptcha');
 
+
 //GET route for reading data
 
 router.get('/', function(req, res, next) {
@@ -71,12 +72,12 @@ router.post('/home', function(req, res, next) {//basic mockup to see whether it 
 
         var options = {
             query: req.body.query,
-            limit: 10,
+            limit: 1,
         };
 
         scraper.search(options, function(err, url, meta) {
             if (err) throw err;
-            res.render('index', {link: meta.meta, href: url, description: meta.desc });
+            res.render('query', {title: 'Queries found', link: meta.meta, href: url, description: meta.desc });
         }) 
 })
 
