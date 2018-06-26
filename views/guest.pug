@@ -10,30 +10,7 @@ html(lang='en')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
     div(class='container-fluid')
-      div(class='row')
-        div(class='col-sm-2')
-          block sidebar
-            ul(class='sidebar-nav')
-              li 
-                a(href='/home') Home
-              li 
-                a(href='/profile') Profile
-              li 
-                a(href='/add') Add a book
-              li 
-                a(href='/logout') Logout
-                hr
-              li
-                 a(href='/catalog/author/create') Test
-              li 
-                a(href='/catalog/genre/create') Test
-              li 
-                a(href='/catalog/book/create') Test
-              li 
-                a(href='/catalog/bookinstance/create') Test
-               
-
-             
+      div(class='row')         
         div(class='col-sm-10')
             h1 #{title}
 
@@ -41,7 +18,7 @@ html(lang='en')
                 div.form-group
                     label(for='name') EasyReads:
                     input#name.form-control(type='text', placeholder='Books, pdf etc' name='query' value=(undefined===genre ? '' : genre.name))
-                button.btn.btn-primary(type='submit') Search
+                button.btn.btn-primary(type='submit') Submit
 
             if errors
                 ul

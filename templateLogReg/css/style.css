@@ -58,9 +58,19 @@ h1 {
     margin-right: 4%;
 }*/
 .agile {
-    float: right;
-    width: 80%;
+    display: flex;
+    float: center;
+    width: 100%;
+    margin-left: 17%;
 }
+.agile:: placeholder {
+    color: black;
+}
+
+.blacken:: placeholder {
+    color: black;
+}
+
 .signin-form {
     background: url(../images/banner1.jpg)no-repeat 0px 0px;
     background-size: cover;
@@ -127,7 +137,7 @@ h1 {
 }
 .signin-form input[type="submit"]:hover {
     color: #fff;
-    background: gray;
+    background: black;
     transition: .5s all;
 	-webkit-transition: .5s all;
     -moz-transition: .5s all;

@@ -88,19 +88,21 @@ router.get('/add', function(req, res, next) {
     res.render('add', { title: "Add a new Link", url: null } );
 })
 
+router.get('/guest', function(req, res, next) {
+    res.render('guest', { title: 'Guest User' } );
+})
+
 router.post('/add', function (req, res, next) {
 
     const errors = validationResult(req);
     
     var url = new Url(
-        { Url: req.body.url },
-        { User: user._id }
+        { Url: req.body.url }
     );
 
     User.findById(req.session.userId)
     .exec( function (error, user) {
-        var user ;
-        user._id = req.session.userId;
+    
 
         if(!errors.isEmpty()){
             res.render('add', { title: 'Add a new link', url: url, errors: errors.array() } );
@@ -116,8 +118,9 @@ router.post('/add', function (req, res, next) {
                 } else {
                     url.save(function (err) {
                         if (err) { return next(err); }
-
-                        res.redirect('/add');
+                            else {
+                        res.render('addsuccess', { title: 'Success You have uploaded a book' } );
+                            }
                     })
                 }
             })
@@ -130,21 +133,22 @@ router.post('/add', function (req, res, next) {
 //create a neq router api a get one to render the initial push and a post one to handle data and push data back
 
 //GET route after registering
-router.get('/profile', function(req, res, next) {
-    User.findByID(req.session.userId)
-        .exec(function (error, user) {
-            if (error) {
-                return next(error);
-            } else {
-                if (user === null) {
-                    var err = new Error('Not authorized!!!Go back!');
-                    err.status = 400;
-                    return next(err);
-                } else {
-                    return res.send('<h1>NAME: </h1>' + user.username + '<h2>MAIL: </h2>' + user.email + '<br><a type="button" href="/logout">LOGOUT</a>');
-                }
-            }
-        });
+// GET route after registering
+router.get('/profile', function (req, res, next) {
+  User.findById(req.session.userId)
+    .exec(function (error, user) {
+      if (error) {
+        return next(error);
+      } else {
+        if (user === null) {
+          var err = new Error('Not authorized! Go back!');
+          err.status = 400;
+          return next(err);
+        } else {
+          return res.send('<h1>Name: </h1>' + user.username + '<h2>Mail: </h2>' + user.email + '<br><a type="button" href="/logout">Logout</a>')
+        }
+      }
+    });
 });
 
 router.get('/logout', function (req, res, next) {

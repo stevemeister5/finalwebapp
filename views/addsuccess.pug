@@ -22,26 +22,14 @@ html(lang='en')
                 a(href='/add') Add a book
               li 
                 a(href='/logout') Logout
-                hr
-              li
-                 a(href='/catalog/author/create') Test
-              li 
-                a(href='/catalog/genre/create') Test
-              li 
-                a(href='/catalog/book/create') Test
-              li 
-                a(href='/catalog/bookinstance/create') Test
-               
-
              
         div(class='col-sm-10')
-            h1 #{title}
 
-            form(method='POST' action='/home')
+            form(method='POST' action='/add')
                 div.form-group
-                    label(for='name') EasyReads:
-                    input#name.form-control(type='text', placeholder='Books, pdf etc' name='query' value=(undefined===genre ? '' : genre.name))
-                button.btn.btn-primary(type='submit') Search
+                    label(for='name') Success Add another one????
+                    input#name.form-control(type='text', name='url' value=(undefined===genre ? '' : genre.name))
+                button.btn.btn-primary(type='submit') Submit
 
             if errors
                 ul
@@ -49,4 +37,5 @@ html(lang='en')
                         li!= error.msg
         div(class='col-sm-10')
           block content
-
+                div
+                h1= title

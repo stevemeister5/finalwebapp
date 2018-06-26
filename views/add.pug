@@ -17,18 +17,18 @@ html(lang='en')
               li 
                 a(href='/home') Home
               li 
-                a(href='/categories') Categories
+                a(href='/profile') Profile
               li 
                 a(href='/add') Add a book
               li 
-                a(href='/home/mine') My Books
+                a(href='/logout') Logout
              
         div(class='col-sm-10')
             h1 #{title}
 
             form(method='POST' action='/add')
                 div.form-group
-                    label(for='name') Genre:
+                    label(for='name') 
                     input#name.form-control(type='text', name='url' value=(undefined===genre ? '' : genre.name))
                 button.btn.btn-primary(type='submit') Submit
 

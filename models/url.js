@@ -5,8 +5,7 @@ var Schema = mongoose.Schema;
 
 var UrlSchema = new Schema(
     {
-        Url: { type: String, required: true },
-        User: { type: Schema.ObjectId, ref: 'User', required: true }
+        Url: { type: String, required: true }
     }
 );
 
