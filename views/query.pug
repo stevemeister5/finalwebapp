@@ -3,10 +3,13 @@ extends layout
 block content
     h1= title
 
-    ul
-        li
-            a(href=url) #{link}
-            | (#{description})
+    div(style='margin-left:20px;margin-top:20px')
 
-    else 
-        li There are no results        
+        dl
+        each link in links
+            dt
+                a(href=link.href) #{link.title}
+            dd #{link.description}    
+
+        else 
+            li There are no results        

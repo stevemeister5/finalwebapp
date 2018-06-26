@@ -15,33 +15,21 @@ html(lang='en')
           block sidebar
             ul(class='sidebar-nav')
               li 
-                a(href='/catalog') Home
+                a(href='/home') Home
               li 
-                a(href='/catalog/books') All books
+                a(href='/categories') Categories
               li 
-                a(href='/catalog/authors') All authors
+                a(href='/add') Add a book
               li 
-                a(href='/catalog/genres') All genres
-              li 
-                a(href='/catalog/bookinstances') All book-instances
-              li 
-                hr
-              li 
-                a(href='/catalog/author/create') Create new author
-              li 
-                a(href='/catalog/genre/create') Create new genre
-              li 
-                a(href='/catalog/book/create') Create new book
-              li 
-                a(href='/catalog/bookinstance/create') Create new book instance (copy)
-                
+                a(href='/home/mine') My Books
+             
         div(class='col-sm-10')
             h1 #{title}
 
             form(method='POST' action='/home')
                 div.form-group
                     label(for='name') Genre:
-                    input#name.form-control(type='text', placeholder='Fantasy, Poetry etc.' name='name' value=(undefined===genre ? '' : genre.name))
+                    input#name.form-control(type='text', placeholder='Fantasy, Poetry etc.' name='query' value=(undefined===genre ? '' : genre.name))
                 button.btn.btn-primary(type='submit') Submit
 
             if errors

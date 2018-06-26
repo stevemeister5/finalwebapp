@@ -6,7 +6,14 @@ var google = require('google');
 const bodyParser = require('body-parser');
 var scraper = require('google-search-scraper');
 var DeathByCaptcha = require('deathbycaptcha');
+var async = require('async');
+var Url = require('../models/url');
+const { body, validationResult } = require('express-validator/check');
+const { sanitizeBody } = require('express-validator/filter');
 
+
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: true }));
 
 //GET route for reading data
 
@@ -68,18 +75,55 @@ router.get('/home', function(req, res, next) {
 router.post('/home', function(req, res, next) {//basic mockup to see whether it will load must replace with real deal
         
         
-        var dbc = new DeathByCaptcha('username', 'password');
+        google.resultsPerPage = 25;
 
-        var options = {
-            query: req.body.query,
-            limit: 1,
-        };
+        google(req.body.query + ' pdf', function (err, results){
+            if (err) throw (err);
 
-        scraper.search(options, function(err, url, meta) {
-            if (err) throw err;
-            res.render('query', {title: 'Queries found', link: meta.meta, href: url, description: meta.desc });
-        }) 
+            res.render('query', { title: 'Query Results', links: results.links } );
+        })
 })
+
+router.get('/add', function(req, res, next) {
+    res.render('add', { title: "Add a new Link", url: null } );
+})
+
+router.post('/add', function (req, res, next) {
+
+    const errors = validationResult(req);
+    
+    var url = new Url(
+        { Url: req.body.url },
+        { User: user._id }
+    );
+
+    User.findById(req.session.userId)
+    .exec( function (error, user) {
+        var user ;
+        user._id = req.session.userId;
+
+        if(!errors.isEmpty()){
+            res.render('add', { title: 'Add a new link', url: url, errors: errors.array() } );
+        return;    
+        }
+        else {
+            Url.findOne({ 'Url': req.body.url })
+            .exec( function(err, found_url) {
+                if (err) { return next(err); }
+
+                if(found_url) {
+                    res.redirect('/add');
+                } else {
+                    url.save(function (err) {
+                        if (err) { return next(err); }
+
+                        res.redirect('/add');
+                    })
+                }
+            })
+        }
+    })
+});    
 
 
 //change this toonly happen at the press of a button
